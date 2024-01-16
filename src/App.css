@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+form#registroUsuario section{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    justify-items: center;
+}
