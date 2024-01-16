@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import HeaderNav from './components/Header';
-import LoginForm from './components/LoginForm';
+import Routes from './Routes';
 
 function App() {
   return (
     <>
       <HeaderNav />
-      <LoginForm />
+      <Routes />
     </>
   );
 }
