@@ -7,8 +7,8 @@ const LoginForm: React.FC = () => {
             <form id="login" className='flex flex-col justify-center items-center w-96 bg-[var(--blue)] h-3/4'>
                 <img src="img/iconBall.svg" alt=""  width={70} height={70}/>
                 <div>
-                    <label htmlFor="loginUser">Email</label>
-                    <input type="text" name="loginUser" id="loginUser" required/>
+                    <label htmlFor="email">Email</label>
+                    <input type="text" name="email" id="email" required/>
                 </div>
                 <div>
                     <label htmlFor="password">Senha</label>
