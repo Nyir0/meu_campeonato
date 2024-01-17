@@ -1,5 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import UrlLaravel from '../UrlLaravel';
 
 // Componente do Header geral da aplicação
 
@@ -13,6 +15,35 @@ const HeaderNav: React.FC = () => {
                 <strong className='text-md font-bold'>Meu Campeonato</strong>
             </header>
         );
+    }
+
+    const logout = () =>{
+        axios.get(UrlLaravel() + '/sanctum/csrf-cookie')
+            .then(() => {
+            const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1");
+            // Realizar a solicitação de registro
+            axios.post(UrlLaravel() + "/logout", null,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': decodeURIComponent(csrfToken)
+                // Adicione outros cabeçalhos conforme necessário
+                },
+                withCredentials: true,
+            })
+            .then((response) => {
+                    if(response.data === "sucess") {
+                      window.location.href="/login";
+                    }
+                })
+                .catch((error) => {
+                // Trate os erros da solicitação de registro
+                console.error('Erro na solicitação de registro:', error);
+                });
+            })
+            .catch((error) => {
+            // Trate os erros na obtenção do token CSRF
+            console.error('Erro ao obter token CSRF:', error);
+        });
     }
 
     return(
@@ -29,7 +60,7 @@ const HeaderNav: React.FC = () => {
                 </ul>
             </nav>
             </Router>
-            <a href="/Logout" className='w-20'>Sair</a>
+            <span id="logout" className='w-20 cursor-pointer' onClick={logout}>Sair</span>
         </header>
     );
 }
