@@ -9,8 +9,16 @@
 }
 
 :root{
-    --blue: rgb(92, 183, 222);
+    --blue: rgb(196, 241, 251);
+    --blue-light:rgb(222, 245, 250);
+    --blue-medium:rgb(98, 149, 216);
     --black: rgb(54, 54, 54);
+}
+
+*{
+    font-size: 15px;
+    font-weight: 700;
+    color: rgb(50, 89, 152);
 }
 
 body{
@@ -30,21 +38,49 @@ header{
 header ul{
     display: flex;
     width: 100%;
-    font-weight: 700;
     font-size: 16px;
 }
 
 nav{
+    position: fixed;
+    margin: .5rem 0 1rem .5rem;
+    padding: 0;
+    height: calc(100vh - 4.5rem);
     width: 20%;
+    background-color: var(--blue-light);
+}
+
+nav span{
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    font-size:12px;
+    font-weight: 700;
+}
+
+main{
+    padding-left: 22.5%;
+    padding-top: 1rem;
 }
 
 ul{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
-ul li {
+ul li{
+    text-align: center;
     list-style-type: none;
+    padding: 1.5rem 1.5rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+ul li:hover, nav span:hover {
+    background-color: var(--blue);
 }
 
 form label{
@@ -67,11 +103,12 @@ form input{
     font-weight: 700;
 }
 
-form button{
+button{
     margin-top: 1rem;
     padding: 0.5rem 0;
     width: 10rem;
-    background-color: var(--black) !important;
+    border-radius: 5px;
+    background-color: var(--blue-medium) !important;
     color:white;
 }
 
@@ -81,4 +118,11 @@ form button:hover{
 
 form a{
     font-weight: 600;
+}
+
+select{
+    height: 2.5rem;
+    border-radius: 5px;
+    border: 2px solid var(--blue);
+    padding-left: .5rem;
 }
