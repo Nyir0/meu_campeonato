@@ -25,6 +25,11 @@ const Simulation: React.FC = () => {
         axios.get(UrlLaravel() + `/api/simulation?championship=${champ}`)
         .then((response) =>{
           setChampionshipResults(response.data.AllResults);
+        }).catch((error)=>{
+          alert("Não é possivel simular com menos de 8 times");
+          setTimeout(() => {
+            window.location.href="/inicio";
+          }, 1000);
         });
         
       } catch (error) {
