@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import Menu from './Menu';
 import UrlLaravel from '../UrlLaravel';
 
@@ -33,12 +33,63 @@ const Home: React.FC = () => {
     }
     
     useEffect(() => {
-        
-        axios.get(UrlLaravel()+'/api/championship')
-        .then((response)=>{
-            setChampionships(response.data);
-        })
-    }, [])
+        axios.get(UrlLaravel() + '/api/championship')
+            .then((response) => {
+                setChampionships(response.data);
+            });
+    
+        const form = document.getElementById('sendTeamForm') as HTMLFormElement || null;
+        const submitHandler = (event: Event) => {
+            var formData = new FormData(form);
+            var selectChamp = document.getElementById("championship") as HTMLSelectElement;
+    
+            event.preventDefault();
+    
+            axios.get(UrlLaravel() + '/sanctum/csrf-cookie')
+            .then(() => {
+                const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1");
+
+                // Obtenha o valor de 'selectChamp' antes de realizar a solicitação
+                var selectChamp = document.getElementById("championship") as HTMLSelectElement;
+                const selectedChampValue = selectChamp.value;
+
+                axios.post(UrlLaravel() + '/api/championship/send_team', {
+                'name': formData.get('nameTeam') as string,
+                'championship': selectedChampValue,
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': decodeURIComponent(csrfToken)
+                },
+                withCredentials: true,
+                }).then((response) => {
+                // Agora você pode usar 'selectedChampValue' sem erros
+                axios.get(UrlLaravel() + '/api/teams', {
+                    params: { id: selectedChampValue }
+                }).then((request) => {
+                    setTeams(request.data);
+                }).catch((error) => {
+                    console.error("Erro ao obter equipes:", error);
+                });
+
+                }).catch((error) => {
+                alert(error.response.data);
+                });
+            });
+
+        };
+    
+        if (form) {
+            form.addEventListener('submit', submitHandler);
+        }
+    
+        // Remover o ouvinte de evento ao desmontar o componente
+        return () => {
+            if (form) {
+                form.removeEventListener('submit', submitHandler);
+            }
+        };
+    }, []);
     
 
     return (
@@ -57,8 +108,15 @@ const Home: React.FC = () => {
                             ))}
                         </select>
                     </div>
-                    <div className='mx-6'>
-                        <button>SIMULAR</button>
+                    <div className='flex items-end mx-6 justify-between'>
+                        <button className='h-10 mr-14'>SIMULAR</button>
+                        <form id="sendTeamForm" className='flex items-end' method="post">
+                            <div className='flex flex-col justify-end my-0'>
+                                <label htmlFor='nameTeam'>Nome do time</label>
+                                <input className='border-2 border-[var(--blue)] mr-4' type="text" id="nameTeam" name='nameTeam' required />
+                            </div>
+                            <button className='py-2' type='submit'>Cadastrar time !</button>
+                        </form>
                     </div>
                 </section>
                 <section id="quartas-final" className='flex flex-col w-1/5 my-4'>
