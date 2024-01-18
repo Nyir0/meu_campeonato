@@ -21,6 +21,16 @@ const Home: React.FC = () => {
         id: string;
     }
 
+    const simulation = () => {
+        var selectChamp = document.getElementById("championship") as HTMLSelectElement;
+        if(selectChamp.value !== "0"){
+            window.location.href="/simulacao?championship="+selectChamp.value;
+        }else{
+            alert("Selecione um campeonato para simular");
+        }
+        
+    }
+
     const getTeams = (event: ChangeEvent<HTMLSelectElement>) => {
         
         const idChamp: IdChamp = {id: event.target.value};
@@ -100,7 +110,7 @@ const Home: React.FC = () => {
                     <div className='flex flex-col w-60'>
                         <label htmlFor="championship" className='text-xl mb-2 font-semibold'>Campeonatos</label>
                         <select name="championship" id="championship" onChange={getTeams}>
-                            <option key="0" value="">-</option>
+                            <option key="0" value="0">-</option>
                             {championships.map((championship) => (
                                 <option key={championship.id} value={championship.id.toString()}>
                                     {championship.name}
@@ -109,7 +119,7 @@ const Home: React.FC = () => {
                         </select>
                     </div>
                     <div className='flex items-end mx-6 justify-between'>
-                        <button className='h-10 mr-14'>SIMULAR</button>
+                        <button className='h-10 mr-14' onClick={simulation}>SIMULAR</button>
                         <form id="sendTeamForm" className='flex items-end' method="post">
                             <div className='flex flex-col justify-end my-0'>
                                 <label htmlFor='nameTeam'>Nome do time</label>

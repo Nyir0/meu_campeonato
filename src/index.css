@@ -64,6 +64,14 @@ main{
     padding-top: 1rem;
 }
 
+table{
+    width:35rem;
+}
+
+tr td{
+    width: 25%;
+}
+
 ul{
     display: flex;
     flex-direction: column;
