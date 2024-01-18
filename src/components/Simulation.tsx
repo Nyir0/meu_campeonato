@@ -16,22 +16,26 @@ interface ChampionshipResults {
 const urlSearchParams = new URLSearchParams(window.location.search);
 const champ = urlSearchParams.get('championship');
 
+
 const Simulation: React.FC = () => {
   const [championshipResults, setChampionshipResults] = useState<ChampionshipResults>({});
-
-  useEffect(() => {
-    const fetchChampionshipResults = async () => {
+    
+    const fetchChampionshipResults = () => {
       try {
-        const response = await axios.get(UrlLaravel() + `/api/simulation?championship=${champ}`);
-        console.log(response.data.AllResults);
-        setChampionshipResults(response.data.AllResults);
+        axios.get(UrlLaravel() + `/api/simulation?championship=${champ}`)
+        .then((response) =>{
+          setChampionshipResults(response.data.AllResults);
+        });
+        
       } catch (error) {
         console.error('Erro ao obter resultados do campeonato', error);
       }
     };
 
-    fetchChampionshipResults();
-  }, [champ]);
+    window.onload = () =>{
+      fetchChampionshipResults();
+    }
+    
 
   const renderTable = (matches: MatchResult[], phase: string) => (
     <div className='border-2 flex flex-col w-1/2 items-center mb-3' key={phase}>
@@ -53,10 +57,10 @@ const Simulation: React.FC = () => {
 
   return (
     <>
-        <a href="/inicio">Voltar</a>
-        <div className='flex flex-col items-center'>
+      <a href="/inicio">Voltar</a>
+      <div className='flex flex-col items-center'>
         {Object.entries(championshipResults).map(([phase, matches]) => renderTable(matches, phase))}
-        </div>
+      </div>
     </>
   );
 };
