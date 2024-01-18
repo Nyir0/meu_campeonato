@@ -38,7 +38,7 @@ const Menu: React.FC = () => {
             <ul>
                 <div>
                     <li><a href="/inicio">CAMPEONATOS</a></li>
-                    <li><a href="/inicio">HISTORICOS</a></li>
+                    <li><a href="/historico">HISTORICOS</a></li>
                 </div>
                 <span id="logout" onClick={logout}>LOGOUT</span>
             </ul>
