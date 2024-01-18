@@ -15,9 +15,12 @@ const LoginForm: React.FC = () => {
             const formData = new FormData(form);
       
             // Fazer solicitação para obter o token CSRF
-            axios.get(UrlLaravel() + '/sanctum/csrf-cookie')
+            axios.get(UrlLaravel() + '/sanctum/csrf-cookie', {
+              withCredentials: true,
+            })
               .then(() => {
                 const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1");
+                console.log(document.cookie);
                 // Realizar a solicitação de registro
                 axios.post(UrlLaravel() + "/login", {
                   "email": formData.get("email") as string,
