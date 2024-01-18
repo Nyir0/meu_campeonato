@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+Para executar o projeto:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1 - Execute o clone tanto do front quanto do backend:
+front: https://github.com/Nyir0/meu_campeonato.git
+back: https://github.com/Nyir0/backEndMeuCampeonato.git
 
-## Available Scripts
+2 - No projeto meu_campeonato(front) execute um npm update.
 
-In the project directory, you can run:
+3 - No projeto do back, execute um composer install.
 
-### `npm start`
+4 - Ainda no back, execute php artisan migrate, para gerar todas as migrations
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+5 - Para gerar o acesso de usuario e possivel tanto criar uma conta, quanto executar o comando e gerar uma conta
+admin.
+Comando: php artisan db:seed --class=DatabaseSeeder
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+6 - Execute php artisan db:seed --class=DatabaseChampionship para gerar os campeonatos
 
-### `npm test`
+7 - Execute no front(React) npm start, e execute o projeto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8 - Se executou o comando para acesso como admin, o login:admin@admin.com password:admin123
 
-### `npm run build`
+9 - É feita uma verificação com token para o backend para permitir o login. Após entrar poderá verificar
+que serao gerados 3 campeonatos, sendo que o primeiro campeonato é o unico com times cadastrados. Se apertar simular
+Será direcionado para uma pagina que será mostrado a simulação.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+10 - Caso volte para a pagina inicial, pode escolher outro campeonato e cadastrar um time, basta colocar o nome do time no campo do lado direito e apertar inscrever que o time sera cadastrado.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+11 - Para simular e necessário ter 8 times, caso nao tenha n será direcionado para a pagina.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+12 - Se apertar no logout será deslogado
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Obs.: Infelizmente não consegui fazer a parte do historico e de diferetnes logins com facebook e github a tempo, mas decidi o que eu ja tinha feito.
