@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UrlLaravel from '../UrlLaravel';
+import Menu from './Menu';
 
 interface MatchResult {
   time1: string;
@@ -43,7 +44,7 @@ const Simulation: React.FC = () => {
     
 
   const renderTable = (matches: MatchResult[], phase: string) => (
-    <div className='border-2 flex flex-col w-1/2 items-center mb-3' key={phase}>
+    <div key={phase}>
       <h2 className='w-full text-center'>{phase}</h2>
       <table>
         <tbody>
@@ -62,10 +63,17 @@ const Simulation: React.FC = () => {
 
   return (
     <>
-      <a href="/inicio">Voltar</a>
-      <div className='flex flex-col items-center'>
-        {Object.entries(championshipResults).map(([phase, matches]) => renderTable(matches, phase))}
-      </div>
+      <Menu />
+      <main>
+        <a href="/inicio">Voltar</a>
+        <div className='flex flex-col items-center'>
+          {Object.entries(championshipResults).map(([phase, matches]) => renderTable(matches, phase))}
+        </div>
+        <ul className='flex w-full justify-center mt-14 ml-24'>
+          <li>Os pontos para critério de desempate, são baseados no número de gols.</li>
+          <li>Atualizar a pagina irá gerar uma nova simulação para este campeonato.</li>
+        </ul>
+      </main>
     </>
   );
 };

@@ -84,7 +84,7 @@ ul{
     height: 100%;
 }
 
-ul li{
+nav ul li{
     text-align: center;
     list-style-type: none;
     padding: 1.5rem 1.5rem;
@@ -92,7 +92,11 @@ ul li{
     font-weight: 500;
 }
 
-ul li:hover, nav span:hover {
+ul li{
+    list-style-type: disc;
+}
+
+nav ul li:hover, nav span:hover {
     background-color: var(--blue);
 }
 
