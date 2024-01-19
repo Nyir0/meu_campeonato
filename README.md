@@ -13,6 +13,7 @@ back: https://github.com/Nyir0/backEndMeuCampeonato.git
 5 - Para gerar o acesso de usuario e possivel tanto criar uma conta, quanto executar o comando e gerar uma conta
 admin.
 Comando: php artisan db:seed --class=DatabaseSeeder
+Obs: o arquivo env do backend tem que estar conectado com o banco de dados
 
 6 - Execute php artisan db:seed --class=DatabaseChampionship para gerar os campeonatos
 
